@@ -1,0 +1,191 @@
+:root{
+  --lvn-teal:#18434e;
+  --lvn-coral:#c13b2e;
+  --lvn-mint:#8ed4d3;
+  --lvn-border:#e7dddb;
+  --lvn-muted:#6e6a63;
+  --lvn-serif:'PT Serif',Georgia,serif;
+  --lvn-sans:'PT Sans',Arial,sans-serif;
+}
+
+/*
+ * 1.2.3: эти стили передаются прямо внутрь iframe Gutenberg через
+ * block_editor_settings_all. Поэтому они не зависят от CSS админской оболочки.
+ */
+.editor-styles-wrapper{
+  color:#30383a;
+  font-family:var(--lvn-sans);
+  font-size:18px;
+  line-height:1.78;
+}
+
+.editor-styles-wrapper .is-root-container.block-editor-block-list__layout,
+.editor-styles-wrapper .is-root-container{
+  width:min(760px,calc(100% - 48px))!important;
+  max-width:760px!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding-bottom:100px;
+  box-sizing:border-box;
+}
+
+.editor-styles-wrapper .is-root-container::after{
+  content:"";
+  display:block;
+  clear:both;
+}
+
+/* Обычные блоки всегда принадлежат колонке статьи. */
+.editor-styles-wrapper .is-root-container > .wp-block:not([data-align="left"]):not([data-align="right"]):not([data-align="wide"]):not([data-align="full"]){
+  max-width:100%!important;
+}
+
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3,
+.editor-styles-wrapper h4{
+  clear:both;
+  color:var(--lvn-teal);
+  font-family:var(--lvn-serif);
+  font-weight:400;
+  line-height:1.2;
+}
+.editor-styles-wrapper h2{margin-top:48px;margin-bottom:18px;font-size:34px}
+.editor-styles-wrapper h3{margin-top:36px;margin-bottom:14px;font-size:27px}
+.editor-styles-wrapper h4{margin-top:32px;margin-bottom:14px;font-size:21px}
+.editor-styles-wrapper p{margin-top:0;margin-bottom:22px}
+.editor-styles-wrapper a{color:var(--lvn-coral);text-underline-offset:3px}
+.editor-styles-wrapper blockquote{clear:both;margin:36px 0;padding:25px 28px;border-left:4px solid var(--lvn-mint);background:#fff;color:var(--lvn-teal);font-family:var(--lvn-serif);font-size:21px;line-height:1.55}
+.editor-styles-wrapper figcaption{color:var(--lvn-muted);font-size:13px;line-height:1.5}
+
+/*
+ * Нативные alignleft/alignright Gutenberg ограничены реальными 760 px статьи.
+ * 1.2.9: сохранённая Gutenberg ширина остаётся источником истины. Контейнер
+ * обтекания shrink-wrap повторяет ширину картинки, поэтому drag-resize виден
+ * сразу и не создаёт скрытую пустую область рядом с изображением.
+ */
+.editor-styles-wrapper .is-root-container > [data-align="left"],
+.editor-styles-wrapper .is-root-container > .wp-block[data-align="left"]{
+  float:left!important;
+  position:relative!important;
+  inset:auto!important;
+  width:fit-content;
+  max-width:min(46%,340px)!important;
+  margin:8px 28px 18px 0!important;
+  transform:none!important;
+}
+.editor-styles-wrapper .is-root-container > [data-align="right"],
+.editor-styles-wrapper .is-root-container > .wp-block[data-align="right"]{
+  float:right!important;
+  position:relative!important;
+  inset:auto!important;
+  width:fit-content;
+  max-width:min(46%,340px)!important;
+  margin:8px 0 18px 28px!important;
+  transform:none!important;
+}
+.editor-styles-wrapper [data-align="left"] > .wp-block-image,
+.editor-styles-wrapper [data-align="right"] > .wp-block-image,
+.editor-styles-wrapper [data-align="left"] > figure,
+.editor-styles-wrapper [data-align="right"] > figure,
+.editor-styles-wrapper .wp-block-image.alignleft,
+.editor-styles-wrapper .wp-block-image.alignright{
+  max-width:100%!important;
+}
+.editor-styles-wrapper [data-align="left"] > .wp-block-image,
+.editor-styles-wrapper [data-align="right"] > .wp-block-image,
+.editor-styles-wrapper [data-align="left"] > figure,
+.editor-styles-wrapper [data-align="right"] > figure{
+  float:none!important;
+  margin:0!important;
+}
+.editor-styles-wrapper [data-align="left"] img,
+.editor-styles-wrapper [data-align="right"] img,
+.editor-styles-wrapper .wp-block-image.alignleft img,
+.editor-styles-wrapper .wp-block-image.alignright img{
+  display:block;
+  max-width:100%!important;
+  height:auto!important;
+}
+
+.editor-styles-wrapper .is-root-container > .wp-block-image.alignleft,
+.editor-styles-wrapper .wp-block-post-content > .wp-block-image.alignleft,
+.editor-styles-wrapper .is-root-container > figure.alignleft,
+.editor-styles-wrapper .wp-block-post-content > figure.alignleft{
+  display:table;
+  float:left!important;
+  width:fit-content;
+  max-width:min(46%,340px)!important;
+  margin:8px 28px 18px 0!important;
+}
+.editor-styles-wrapper .is-root-container > .wp-block-image.alignright,
+.editor-styles-wrapper .wp-block-post-content > .wp-block-image.alignright,
+.editor-styles-wrapper .is-root-container > figure.alignright,
+.editor-styles-wrapper .wp-block-post-content > figure.alignright{
+  display:table;
+  float:right!important;
+  width:fit-content;
+  max-width:min(46%,340px)!important;
+  margin:8px 0 18px 28px!important;
+}
+
+/* Отступ и float принадлежат только внешнему блоку обтекания. */
+.editor-styles-wrapper [data-align="left"] :is(figure,.wp-block-image,img),
+.editor-styles-wrapper [data-align="right"] :is(figure,.wp-block-image,img){
+  float:none!important;
+  max-width:100%!important;
+  margin:0!important;
+}
+.editor-styles-wrapper [data-align="left"] figure,
+.editor-styles-wrapper [data-align="right"] figure{
+  display:table;
+  width:fit-content;
+}
+.editor-styles-wrapper [data-align="left"] figcaption,
+.editor-styles-wrapper [data-align="right"] figcaption{
+  display:table-caption;
+  caption-side:bottom;
+}
+
+.editor-styles-wrapper .wp-block-separator,
+.editor-styles-wrapper .lv-news-callout,
+.editor-styles-wrapper .lv-news-fact,
+.editor-styles-wrapper .lv-news-cta{clear:both}
+
+.editor-styles-wrapper .lv-news-callout{margin:36px 0;padding:4px 0 4px 18px;border-left:2px solid var(--lvn-coral);color:var(--lvn-coral);font-family:var(--lvn-serif);font-size:1.4em;font-weight:500;line-height:1.45}
+.editor-styles-wrapper .lv-news-callout__text{margin:0!important}
+.editor-styles-wrapper .lv-news-fact{margin:36px 0;padding:24px 26px;border:1px solid var(--lvn-border);border-radius:2px;background:#fff}
+.editor-styles-wrapper .lv-news-fact__label{display:block;margin-bottom:8px;color:var(--lvn-coral);font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase}
+.editor-styles-wrapper .lv-news-fact__value{display:block;margin-bottom:8px;color:var(--lvn-teal);font-family:var(--lvn-serif);font-size:34px;font-weight:400;line-height:1.15}
+.editor-styles-wrapper .lv-news-fact__text{margin:0!important;color:var(--lvn-teal);font-family:var(--lvn-serif);font-size:24px;line-height:1.35}
+.editor-styles-wrapper .lv-news-cta{margin:38px 0;padding:28px;border-radius:2px;background:var(--lvn-teal);color:#fff}
+.editor-styles-wrapper .lv-news-cta__button{display:inline-flex;padding:12px 18px;background:var(--lvn-mint);color:#12414c;font-family:var(--lvn-sans);font-size:15px;font-weight:700;line-height:1.2;text-decoration:none}
+
+@media(max-width:700px){
+  .editor-styles-wrapper .is-root-container.block-editor-block-list__layout,
+  .editor-styles-wrapper .is-root-container{width:calc(100% - 28px)!important}
+  .editor-styles-wrapper .is-root-container > [data-align="left"],
+  .editor-styles-wrapper .is-root-container > [data-align="right"],
+  .editor-styles-wrapper figure.alignleft,
+  .editor-styles-wrapper figure.alignright,
+  .editor-styles-wrapper .wp-block-image.alignleft,
+  .editor-styles-wrapper .wp-block-image.alignright{
+    float:none!important;
+    width:fit-content;
+    max-width:100%!important;
+    margin:28px 0!important;
+  }
+}
+
+/* ============================================================
+   1.2.4 — редакционная палитра блоков.
+   Заголовки: только H2/H3. Остальные акценты оформляются специальными блоками.
+   ============================================================ */
+.editor-styles-wrapper .lv-news-heading{clear:both}
+.editor-styles-wrapper .lv-news-heading--2{margin-top:48px;margin-bottom:18px;color:var(--lvn-teal);font-family:var(--lvn-serif);font-size:34px;font-weight:400;line-height:1.2}
+.editor-styles-wrapper .lv-news-heading--3{margin-top:36px;margin-bottom:14px;color:var(--lvn-teal);font-family:var(--lvn-serif);font-size:27px;font-weight:400;line-height:1.25}
+.editor-styles-wrapper .lv-news-lead{clear:both;margin:0 0 30px!important;color:var(--lvn-teal);font-family:var(--lvn-serif);font-size:23px;line-height:1.55}
+.editor-styles-wrapper .lv-news-brand-accent{display:block;clear:both;margin:34px 0;padding-left:14px;border-left:2px solid #b71c1c;color:#b71c1c;font-size:1.4em;font-weight:500;line-height:1.45}
+.editor-styles-wrapper .lv-news-notice{clear:both;margin:34px 0;padding:22px 24px;border:1px solid var(--lvn-border);border-left:4px solid var(--lvn-coral);background:#fbf8f7;color:#30383a}
+.editor-styles-wrapper .lv-news-notice__label{display:block;margin:0 0 8px;color:var(--lvn-coral);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.editor-styles-wrapper .lv-news-notice__text{margin:0!important;font-size:17px;line-height:1.65}
+.editor-styles-wrapper .lv-news-source-note{clear:both;margin:28px 0!important;padding-top:12px;border-top:1px solid var(--lvn-border);color:var(--lvn-muted);font-size:14px;line-height:1.55}

@@ -1,0 +1,9 @@
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/
+node_modules/
+vendor/
+dist/*.zip
+!dist/lv-news-suite-1.4.0.zip

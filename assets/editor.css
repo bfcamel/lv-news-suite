@@ -1,0 +1,238 @@
+:root{--lvn-teal:#18434e;--lvn-coral:#c13b2e;--lvn-mint:#8ed4d3;--lvn-beige:#f4efee;--lvn-border:#e7dddb;--lvn-muted:#6e6a63;--lvn-serif:'PT Serif',Georgia,serif;--lvn-sans:'PT Sans',Arial,sans-serif}
+
+/* WYSIWYG canvas */
+.post-type-lv_news .editor-styles-wrapper{font-family:var(--lvn-sans);color:#30383a;font-size:18px;line-height:1.78}
+.post-type-lv_news .editor-styles-wrapper .wp-block-post-content{max-width:760px;margin-left:auto;margin-right:auto}
+.post-type-lv_news .editor-styles-wrapper .wp-block-post-title{max-width:900px;color:var(--lvn-teal);font-family:var(--lvn-serif);font-size:clamp(38px,5vw,58px);font-weight:400;line-height:1.08}
+.post-type-lv_news .editor-styles-wrapper .wp-block-post-content h2,.post-type-lv_news .editor-styles-wrapper .wp-block-post-content h3{color:var(--lvn-teal);font-family:var(--lvn-serif);font-weight:400;line-height:1.2}
+.post-type-lv_news .editor-styles-wrapper .wp-block-post-content h2{margin-top:48px;margin-bottom:18px;font-size:34px}
+.post-type-lv_news .editor-styles-wrapper .wp-block-post-content h3{margin-top:36px;margin-bottom:14px;font-size:27px}
+.post-type-lv_news .editor-styles-wrapper .wp-block-post-content p{margin-top:0;margin-bottom:22px}
+.post-type-lv_news .editor-styles-wrapper .wp-block-post-content a{color:var(--lvn-coral);text-underline-offset:3px}
+.post-type-lv_news .editor-styles-wrapper .wp-block-post-content blockquote{margin:36px 0;padding:25px 28px;border-left:4px solid var(--lvn-mint);background:#fff;color:var(--lvn-teal);font-family:var(--lvn-serif);font-size:21px;line-height:1.55}
+.post-type-lv_news .editor-styles-wrapper figcaption{color:var(--lvn-muted);font-size:13px;line-height:1.5}
+
+/* Custom blocks: identical visual language to public page */
+.editor-styles-wrapper .lv-news-callout{margin:36px 0;padding:4px 0 4px 18px;border-left:2px solid var(--lvn-coral);color:var(--lvn-coral);font-family:var(--lvn-serif);font-size:1.4em;font-weight:500;line-height:1.45}
+.editor-styles-wrapper .lv-news-callout__text{margin:0!important}
+.editor-styles-wrapper .lv-news-fact{margin:36px 0;padding:24px 26px;border:1px solid var(--lvn-border);border-radius:2px;background:#fff}
+.editor-styles-wrapper .lv-news-fact__label{display:block;margin-bottom:8px;color:var(--lvn-coral);font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase}
+.editor-styles-wrapper .lv-news-fact__value{display:block;margin-bottom:8px;color:var(--lvn-teal);font-family:var(--lvn-serif);font-size:34px;font-weight:400;line-height:1.15}
+.editor-styles-wrapper .lv-news-fact__text{margin:0!important;color:var(--lvn-teal);font-family:var(--lvn-serif);font-size:24px;line-height:1.35}
+.editor-styles-wrapper .lv-news-cta{margin:38px 0;padding:28px;border-radius:2px;background:var(--lvn-teal);color:#fff}
+.editor-styles-wrapper .lv-news-cta__button{display:inline-flex;padding:12px 18px;background:var(--lvn-mint);color:#12414c;font-family:var(--lvn-sans);font-size:15px;font-weight:700;line-height:1.2;text-decoration:none}
+
+/* Editorial sidebar */
+.lvn-sidebar{padding-bottom:28px;font-family:var(--lvn-sans)}
+.lvn-sidebar .components-panel__body{border-top:1px solid #e5e5e5}
+.lvn-progress{display:grid;grid-template-columns:64px minmax(0,1fr);gap:12px;align-items:center;margin:16px;padding:14px;border:1px solid var(--lvn-border);border-radius:12px;background:#fbfafa}
+.lvn-progress__score{display:grid;width:58px;height:58px;place-items:center;border:5px solid var(--lvn-mint);border-radius:50%;color:var(--lvn-teal);font-size:15px;font-weight:700}
+.lvn-progress__copy{display:flex;min-width:0;flex-direction:column;gap:3px;color:var(--lvn-muted);font-size:12px;line-height:1.35}
+.lvn-progress__copy strong{color:var(--lvn-teal);font-size:14px}
+.lvn-full-button{width:100%;justify-content:center!important;margin-top:8px!important}
+.lvn-meta-note{margin-top:12px;padding:10px 12px;border-radius:8px;background:#f4f6f6;color:var(--lvn-muted);font-size:12px}
+.lvn-subheading{margin:16px 0 8px;color:var(--lvn-teal);font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.lvn-checks{display:flex;flex-direction:column;gap:7px}
+.lvn-check{display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px;align-items:start;padding:8px 9px;border-radius:8px;background:#f6f7f7;color:#51575c;font-size:12px;line-height:1.35}
+.lvn-check__icon{display:grid;width:22px;height:22px;place-items:center;border-radius:50%;font-size:12px;font-weight:700}
+.lvn-check.is-ok .lvn-check__icon{background:#e4f4ec;color:#18723a}
+.lvn-check.is-warn .lvn-check__icon{background:#fff0ed;color:#b32d2e}
+.lvn-check strong{display:block;color:var(--lvn-teal);font-size:12px}.lvn-check small{display:block;margin-top:2px;color:var(--lvn-muted)}
+.lvn-quick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.lvn-quick-grid .components-button{justify-content:center}
+.lvn-image-preview{position:relative;overflow:hidden;margin-bottom:12px;aspect-ratio:4/3;border:1px solid var(--lvn-border);border-radius:10px;background:#eef2f2}.lvn-image-preview img{display:block;width:100%;height:100%;object-fit:cover}
+.lvn-image-empty{display:grid;min-height:150px;place-items:center;margin-bottom:12px;border:1px dashed #b8c0c2;border-radius:10px;background:#f7f8f8;color:var(--lvn-muted);font-size:12px;text-align:center}
+.lvn-placement-preview{overflow:hidden;margin-bottom:12px;border:1px solid var(--lvn-border);border-radius:10px;background:#fff}.lvn-placement-preview__media{display:grid;overflow:hidden;aspect-ratio:4/3;place-items:center;background:#edf2f2;color:var(--lvn-muted);font-size:12px}.lvn-placement-preview__media img{display:block;width:100%;height:100%;object-fit:cover}.lvn-placement-preview__copy{padding:13px}.lvn-placement-preview__copy small{display:block;color:var(--lvn-coral);font-size:10px;font-weight:700;text-transform:uppercase}.lvn-placement-preview__copy strong{display:block;margin-top:5px;color:var(--lvn-teal);font-family:var(--lvn-serif);font-size:18px;line-height:1.25}.lvn-placement-preview__copy p{display:-webkit-box;overflow:hidden;margin:7px 0 0;color:var(--lvn-muted);font-size:12px;line-height:1.45;-webkit-box-orient:vertical;-webkit-line-clamp:3}
+.lvn-image-preview img,.lvn-placement-preview__media img{object-position:var(--lv-news-focus-x,50%) var(--lv-news-focus-y,50%)!important;transform:scale(var(--lv-news-focus-scale,1))!important;transform-origin:var(--lv-news-focus-x,50%) var(--lv-news-focus-y,50%)!important}
+.lvn-save-state{display:flex;align-items:center;gap:6px;margin-top:10px;color:#18723a;font-size:12px}.lvn-save-state.is-saving{color:var(--lvn-muted)}
+
+/* Preview modal */
+.lvn-preview-modal.components-modal__frame{width:min(96vw,1500px);height:min(92vh,960px)}
+.lvn-preview-modal .components-modal__content{display:flex;flex-direction:column;height:100%;margin-top:0;padding-top:64px}
+.lvn-device-switch{display:flex;justify-content:center;gap:8px;padding:0 0 12px}
+.lvn-preview-frame-wrap{display:flex;flex:1;justify-content:center;min-height:0;overflow:auto;padding:14px;background:#dfe4e5}
+.lvn-preview-frame-wrap iframe{display:block;max-width:100%;height:100%;min-height:680px;border:0;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,.12);transition:width .2s ease}
+
+/* Make the document feel like a page rather than generic WP blocks */
+.post-type-lv_news .is-root-container.block-editor-block-list__layout{padding-bottom:100px}
+.post-type-lv_news .block-editor-block-list__block.is-selected{outline-color:rgba(24,67,78,.18)}
+
+@media(max-width:782px){.lvn-preview-modal.components-modal__frame{width:100vw;height:100vh;margin:0}.lvn-preview-frame-wrap{padding:6px}.lvn-quick-grid{grid-template-columns:1fr}}
+
+
+/* ============================================================
+   PATCH 1.2.9 — resize выровненных изображений.
+   Ширина Gutenberg не перекрывается: внешний float shrink-wrap повторяет
+   реальный размер изображения и только ограничивает его безопасным максимумом.
+   Основные iframe-правила находятся в editor-content.css.
+   ============================================================ */
+.post-type-lv_news .editor-styles-wrapper .is-root-container.block-editor-block-list__layout{
+  width:min(100%,760px);max-width:760px;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box
+}
+.post-type-lv_news .editor-styles-wrapper .is-root-container.block-editor-block-list__layout::after{content:"";display:block;clear:both}
+.post-type-lv_news .editor-styles-wrapper .is-root-container>[data-align="left"],
+.post-type-lv_news .editor-styles-wrapper .wp-block-post-content>[data-align="left"]{
+  float:left!important;position:relative!important;left:auto!important;right:auto!important;width:fit-content;max-width:min(46%,340px)!important;margin:8px 28px 18px 0!important;transform:none!important
+}
+.post-type-lv_news .editor-styles-wrapper .is-root-container>[data-align="right"],
+.post-type-lv_news .editor-styles-wrapper .wp-block-post-content>[data-align="right"]{
+  float:right!important;position:relative!important;left:auto!important;right:auto!important;width:fit-content;max-width:min(46%,340px)!important;margin:8px 0 18px 28px!important;transform:none!important
+}
+.post-type-lv_news .editor-styles-wrapper [data-align="left"]>.wp-block-image,
+.post-type-lv_news .editor-styles-wrapper [data-align="right"]>.wp-block-image,
+.post-type-lv_news .editor-styles-wrapper [data-align="left"]>figure,
+.post-type-lv_news .editor-styles-wrapper [data-align="right"]>figure{
+  float:none!important;max-width:100%!important;margin:0!important
+}
+.post-type-lv_news .editor-styles-wrapper [data-align="left"] .wp-block-image img,
+.post-type-lv_news .editor-styles-wrapper [data-align="right"] .wp-block-image img,
+.post-type-lv_news .editor-styles-wrapper .wp-block-image.alignleft img,
+.post-type-lv_news .editor-styles-wrapper .wp-block-image.alignright img{display:block;max-width:100%!important;height:auto}
+.post-type-lv_news .editor-styles-wrapper .is-root-container>.wp-block-image.alignleft,
+.post-type-lv_news .editor-styles-wrapper .wp-block-post-content>.wp-block-image.alignleft,
+.post-type-lv_news .editor-styles-wrapper .is-root-container>figure.alignleft,
+.post-type-lv_news .editor-styles-wrapper .wp-block-post-content>figure.alignleft{
+  display:table;float:left!important;width:fit-content;max-width:min(46%,340px)!important;margin:8px 28px 18px 0!important
+}
+.post-type-lv_news .editor-styles-wrapper .is-root-container>.wp-block-image.alignright,
+.post-type-lv_news .editor-styles-wrapper .wp-block-post-content>.wp-block-image.alignright,
+.post-type-lv_news .editor-styles-wrapper .is-root-container>figure.alignright,
+.post-type-lv_news .editor-styles-wrapper .wp-block-post-content>figure.alignright{
+  display:table;float:right!important;width:fit-content;max-width:min(46%,340px)!important;margin:8px 0 18px 28px!important
+}
+.post-type-lv_news .editor-styles-wrapper [data-align="left"] :is(figure,.wp-block-image,img),
+.post-type-lv_news .editor-styles-wrapper [data-align="right"] :is(figure,.wp-block-image,img){
+  float:none!important;max-width:100%!important;margin:0!important
+}
+.post-type-lv_news .editor-styles-wrapper [data-align="left"] figure,
+.post-type-lv_news .editor-styles-wrapper [data-align="right"] figure{
+  display:table;width:fit-content
+}
+.post-type-lv_news .editor-styles-wrapper [data-align="left"] figcaption,
+.post-type-lv_news .editor-styles-wrapper [data-align="right"] figcaption{
+  display:table-caption;caption-side:bottom
+}
+.post-type-lv_news .editor-styles-wrapper h2,
+.post-type-lv_news .editor-styles-wrapper h3,
+.post-type-lv_news .editor-styles-wrapper h4,
+.post-type-lv_news .editor-styles-wrapper .wp-block-separator,
+.post-type-lv_news .editor-styles-wrapper .lv-news-callout,
+.post-type-lv_news .editor-styles-wrapper .lv-news-fact,
+.post-type-lv_news .editor-styles-wrapper .lv-news-cta{clear:both}
+
+/* H1 внутри материала не предлагается пользователю. JS дополнительно
+   перехватывает смену уровня, а PHP нормализует сторонний/raw HTML. */
+body.post-type-lv_news button[aria-label="Heading 1"],
+body.post-type-lv_news button[aria-label="Заголовок 1"],
+body.post-type-lv_news button[aria-label="H1"]{display:none!important}
+
+.lvn-progress{align-items:start}
+.lvn-progress__missing{display:block;margin-top:5px;color:#8a4b20;font-size:11px;line-height:1.4}
+.lvn-progress__missing b{color:#6f3d1d}
+.lvn-progress__complete{display:block;margin-top:5px;color:#18723a;font-size:11px;line-height:1.4}
+
+@media(max-width:900px){
+  .post-type-lv_news .editor-styles-wrapper .is-root-container>[data-align="left"],
+  .post-type-lv_news .editor-styles-wrapper .is-root-container>[data-align="right"],
+  .post-type-lv_news .editor-styles-wrapper .wp-block-post-content>[data-align="left"],
+  .post-type-lv_news .editor-styles-wrapper .wp-block-post-content>[data-align="right"],
+  .post-type-lv_news .editor-styles-wrapper figure.alignleft,
+  .post-type-lv_news .editor-styles-wrapper figure.alignright,
+  .post-type-lv_news .editor-styles-wrapper .wp-block-image.alignleft,
+  .post-type-lv_news .editor-styles-wrapper .wp-block-image.alignright{
+    float:none!important;width:fit-content;max-width:100%!important;margin:28px 0!important
+  }
+}
+
+/* ============================================================
+   PATCH 1.2.4 — ограниченные заголовки и быстрые редакционные блоки.
+   ============================================================ */
+.post-type-lv_news .editor-styles-wrapper .lv-news-heading{clear:both}
+.post-type-lv_news .editor-styles-wrapper .lv-news-heading--2{margin-top:48px;margin-bottom:18px;color:var(--lvn-teal);font-family:var(--lvn-serif);font-size:34px;font-weight:400;line-height:1.2}
+.post-type-lv_news .editor-styles-wrapper .lv-news-heading--3{margin-top:36px;margin-bottom:14px;color:var(--lvn-teal);font-family:var(--lvn-serif);font-size:27px;font-weight:400;line-height:1.25}
+.post-type-lv_news .editor-styles-wrapper .lv-news-lead{clear:both;margin:0 0 30px!important;color:var(--lvn-teal);font-family:var(--lvn-serif);font-size:23px;line-height:1.55}
+.post-type-lv_news .editor-styles-wrapper .lv-news-brand-accent{display:block;clear:both;margin:34px 0;padding-left:14px;border-left:2px solid #b71c1c;color:#b71c1c;font-size:1.4em;font-weight:500;line-height:1.45}
+.post-type-lv_news .editor-styles-wrapper .lv-news-notice{clear:both;margin:34px 0;padding:22px 24px;border:1px solid var(--lvn-border);border-left:4px solid var(--lvn-coral);background:#fbf8f7;color:#30383a}
+.post-type-lv_news .editor-styles-wrapper .lv-news-notice__label{display:block;margin:0 0 8px;color:var(--lvn-coral);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.post-type-lv_news .editor-styles-wrapper .lv-news-notice__text{margin:0!important;font-size:17px;line-height:1.65}
+.post-type-lv_news .editor-styles-wrapper .lv-news-source-note{clear:both;margin:28px 0!important;padding-top:12px;border-top:1px solid var(--lvn-border);color:var(--lvn-muted);font-size:14px;line-height:1.55}
+
+/* 1.2.6 — подсказка для быстрых блоков */
+.lvn-quick-help {
+    margin: 0 0 8px;
+    color: #646970;
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+/* 1.2.7 — понятный SEO-чек-лист рядом с полями Rank Math */
+.lvn-rankmath-refresh {
+    margin-top: 6px;
+}
+
+.lvn-rankmath-loading {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.lvn-rankmath-loading .components-spinner {
+    margin: 0;
+}
+
+.lvn-seo-audit {
+    margin-top: 18px;
+    padding: 12px;
+    border: 1px solid #dcdcde;
+    border-radius: 6px;
+    background: #fff;
+}
+
+.lvn-seo-audit__head {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 9px;
+}
+
+.lvn-seo-audit__score {
+    color: #646970;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.lvn-seo-audit__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.lvn-seo-audit__list li {
+    display: grid;
+    grid-template-columns: 16px minmax(0, 1fr) auto;
+    gap: 6px;
+    align-items: start;
+    margin: 0;
+    padding: 5px 0;
+    border-top: 1px solid #f0f0f1;
+    font-size: 12px;
+    line-height: 1.35;
+}
+
+.lvn-seo-audit__list li:first-child {
+    border-top: 0;
+}
+
+.lvn-seo-audit__list li.is-ok .lvn-seo-audit__mark {
+    color: #008a20;
+    font-weight: 700;
+}
+
+.lvn-seo-audit__list li.is-missing .lvn-seo-audit__mark {
+    color: #b32d2e;
+    font-weight: 700;
+}
+
+.lvn-seo-audit__list small {
+    color: #646970;
+    white-space: nowrap;
+}

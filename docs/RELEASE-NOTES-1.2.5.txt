@@ -1,0 +1,32 @@
+LV News Suite 1.2.5
+====================
+
+Цель патча
+----------
+1. Исправить потерю SEO-полей после сохранения новости.
+2. Перевести редактор на штатную модель WordPress 7.1.
+
+Исправление SEO
+---------------
+Причина бага была в регистрации post type: lv_news использовал register_post_meta(... show_in_rest => true), но не объявлял поддержку custom-fields. WordPress требует custom-fields support у custom post type, иначе зарегистрированные meta не участвуют в REST read/write. Gutenberg поэтому мог показать временно изменённые значения, но после Save получал с сервера пустые поля.
+
+В 1.2.5:
+- в supports добавлен custom-fields;
+- SEO meta сохраняются штатно через REST;
+- save_post при REST-запросе больше не отправляет в Rank Math старые meta до завершения REST update;
+- rest_after_insert финализирует переданные SEO meta и затем синхронизирует Rank Math.
+
+WordPress 7.1
+-------------
+- Requires at least: 7.1;
+- custom blocks используют apiVersion 3;
+- контентный CSS редактора загружается через enqueue_block_assets, который WordPress 7.1 помещает внутрь always-iframed post editor;
+- удалён JS-код, который вручную искал iframe и внедрял туда stylesheet;
+- allowedBlockTypes закреплён и на PHP, и в block-editor settings;
+- зарегистрированы image sub-sizes lv-news-featured, lv-news-card, lv-news-single и lv-news-mini.
+
+Совместимость
+-------------
+DB schema: 4 (без миграции данных).
+Routes schema: 1.
+Старые изображения используют fallback на large/medium_large/full/thumbnail до появления новых sub-sizes.
