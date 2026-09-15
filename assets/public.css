@@ -27,9 +27,6 @@ body.lv-single-news-page .post-thumbnail,body.lv-single-news-page .entry-meta{di
  * неразрывным пробелом. Он находится уже за пределами #lvNewsArchive и на
  * светлом фоне темы выглядит как белая полоса перед footer.
  */
-body.lv-news-page,
-body.lv-news-page .site-main,
-body.lv-news-page .page-content{background:var(--lv-news-beige)}
 body.lv-news-page .elementor-widget-text-editor > #lvNewsArchive + p.wp-block-paragraph:last-child{
   display:none!important;height:0!important;min-height:0!important;margin:0!important;padding:0!important;border:0!important;line-height:0!important
 }
@@ -67,7 +64,7 @@ body.lv-news-page .elementor-widget-text-editor:has(> #lvNewsArchive){margin-bot
    ARCHIVE /news/ — внешний universal Hero остаётся отдельным.
    ============================================================ */
 #lvNewsArchive{
-  position:relative;left:50%;width:100vw;max-width:100vw;margin-right:-50vw!important;margin-left:-50vw!important;overflow:hidden;background:var(--lv-news-beige)
+  position:relative;left:50%;width:100vw;max-width:100vw;margin-right:-50vw!important;margin-left:-50vw!important;overflow:hidden
 }
 #lvNewsArchive .na-main{
   width:100%;max-width:1200px;margin:0 auto;padding:clamp(54px,6vw,80px) clamp(20px,4vw,40px) clamp(72px,8vw,104px)
@@ -123,7 +120,7 @@ body.lv-news-page .elementor-widget-text-editor:has(> #lvNewsArchive){margin-bot
    HOME SHORTCODE — совместим с оформлением 1.1.x.
    ============================================================ */
 .lv-home-news{
-  position:relative;left:50%;width:100vw;max-width:100vw;margin-right:-50vw!important;margin-left:-50vw!important;overflow:hidden;background:var(--lv-news-beige);color:var(--teal)
+  position:relative;left:50%;width:100vw;max-width:100vw;margin-right:-50vw!important;margin-left:-50vw!important;overflow:hidden;color:var(--teal)
 }
 .lv-home-news .hn-sec{width:100%;max-width:1200px;margin:0 auto;padding:clamp(56px,6vw,80px) clamp(20px,4vw,40px) clamp(64px,7vw,90px)}
 .lv-home-news .hn-grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(280px,1fr);gap:clamp(18px,2vw,28px);align-items:stretch}
