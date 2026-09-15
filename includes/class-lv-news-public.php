@@ -280,8 +280,9 @@ final class LV_News_Public
 
         ob_start();
         ?>
-        <div class="lv-home-news" data-lv-news-version="<?php echo esc_attr(LV_NEWS_SUITE_VERSION); ?>">
+        <div class="lv-home-news" data-lv-news-version="<?php echo esc_attr(LV_NEWS_SUITE_VERSION); ?>" style="background:#fff">
             <section class="hn-sec" aria-label="Свежие новости">
+      <h2 class="hn-title" style="margin:0 0 clamp(28px,3.2vw,40px);color:var(--teal);font-family:var(--lv-news-serif);font-size:clamp(30px,3.6vw,46px);line-height:1.15;font-weight:400;text-align:center">Последние новости</h2>
                 <div class="hn-grid<?php echo count($posts) === 1 ? ' hn-grid--single' : ''; ?>">
                     <?php foreach ($posts as $index => $post) : ?>
                         <?php echo self::render_home_card($post->ID, $index === 0); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
