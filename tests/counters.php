@@ -59,6 +59,8 @@ check_counter(strpos($admin, esc_textarea($script)) !== false && strpos($admin, 
 $archive = LV_News_Suite::get_archive_page_id();
 $out = counter_output('/?page_id='.$archive, true);
 check_counter(substr_count($out, $script) === 1 && strpos($out, 'second-counter') !== false && strpos($out, 'disabledCounter') === false, 'archive emits both enabled counters exactly once');
+check_counter(strpos($out, 'lv-news-counter') === false && strpos($out, 'padding:16px') === false, 'counter output adds no plugin wrapper or layout');
+check_counter(strpos($out, $script) === 0, 'first counter is emitted byte-for-byte at the start of output');
 $out = counter_output('/news/page/2/?page_id='.$archive.'&lv_news_page=2');
 check_counter(strpos($out, $script) !== false, 'paginated archive emits counters');
 $news = wp_insert_post(['post_type'=>'lv_news','post_status'=>'publish','post_title'=>'Counter QA','post_content'=>'News content']);
