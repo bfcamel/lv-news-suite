@@ -13,17 +13,19 @@ function check_counter($ok, $label) {
     if (!$ok) $failures++;
     echo ($ok ? 'PASS ' : 'FAIL ') . $label . "\n";
 }
-function counter_output($url, $repeat = false) {
-    $_GET = [];
-    $_SERVER['REQUEST_URI'] = parse_url($url, PHP_URL_PATH) ?: '/';
-    $GLOBALS['wp']->main(parse_url($url, PHP_URL_QUERY) ?: '');
+function reset_counter_rendered() {
     $property = new ReflectionProperty('LV_News_Counters', 'rendered');
     if (PHP_VERSION_ID < 80100) $property->setAccessible(true);
     $property->setValue(null, false);
-    ob_start();
-    LV_News_Counters::output();
-    if ($repeat) LV_News_Counters::output();
-    return ob_get_clean();
+}
+function counter_render($url, $repeat = false) {
+    $_GET = [];
+    $_SERVER['REQUEST_URI'] = parse_url($url, PHP_URL_PATH) ?: '/';
+    $GLOBALS['wp']->main(parse_url($url, PHP_URL_QUERY) ?: '');
+    reset_counter_rendered();
+    $out = LV_News_Counters::render();
+    if ($repeat) $out .= LV_News_Counters::render();
+    return $out;
 }
 $script = "<script>\n// keep this newline\nwindow.testCounter = 'a\\\\b';\n</script>\n<noscript><img src=\"https://example.test/pixel?a=1&b=2\"></noscript>";
 $rows = [
@@ -57,33 +59,43 @@ wp_set_current_user(1);
 ob_start(); LV_News_Counters::page(); $admin = ob_get_clean();
 check_counter(strpos($admin, esc_textarea($script)) !== false && strpos($admin, $script) === false, 'admin textarea escapes scripts instead of executing them');
 $archive = LV_News_Suite::get_archive_page_id();
-$out = counter_output('/?page_id='.$archive, true);
-check_counter(substr_count($out, $script) === 1 && strpos($out, 'second-counter') !== false && strpos($out, 'disabledCounter') === false, 'archive emits both enabled counters exactly once');
-check_counter(strpos($out, 'lv-news-counter') === false && strpos($out, 'padding:16px') === false, 'counter output adds no plugin wrapper or layout');
-check_counter(strpos($out, $script) === 0, 'first counter is emitted byte-for-byte at the start of output');
-$out = counter_output('/news/page/2/?page_id='.$archive.'&lv_news_page=2');
-check_counter(strpos($out, $script) !== false, 'paginated archive emits counters');
+$out = counter_render('/?page_id='.$archive, true);
+check_counter(substr_count($out, $script) === 1 && strpos($out, 'second-counter') !== false && strpos($out, 'disabledCounter') === false, 'archive renders both enabled counters exactly once');
+check_counter(strpos($out, 'class="lv-news-counters"') !== false, 'visible counter area is present in news content');
+check_counter(strpos($out, $script) > strpos($out, 'lv-news-counters'), 'saved counter code is inside the counter area');
+$out = counter_render('/news/page/2/?page_id='.$archive.'&lv_news_page=2');
+check_counter(strpos($out, $script) !== false, 'paginated archive renders counters');
+
+reset_counter_rendered();
+$_GET = [];
+$_SERVER['REQUEST_URI'] = '/?page_id='.$archive;
+$GLOBALS['wp']->main('page_id='.$archive);
+$archive_html = LV_News_Public::archive_shortcode();
+$counter_pos = strpos($archive_html, 'class="lv-news-counters"');
+$news_pos = max((int) strpos($archive_html, 'class="na-grid"'), (int) strpos($archive_html, 'class="na-featured"'));
+check_counter($counter_pos !== false && $counter_pos > $news_pos, 'archive places counters after the news block');
+
 $news = wp_insert_post(['post_type'=>'lv_news','post_status'=>'publish','post_title'=>'Counter QA','post_content'=>'News content']);
 // Model an existing published news item independently of editor readiness validation.
 $GLOBALS['wpdb']->update($GLOBALS['wpdb']->posts, ['post_status'=>'publish'], ['ID'=>$news]);
 clean_post_cache($news);
 wp_set_current_user(0);
-$out = counter_output('/?post_type=lv_news&p='.$news);
-check_counter(strpos($out, $script) !== false, 'single news emits counters');
-$property = new ReflectionProperty('LV_News_Counters', 'rendered'); if (PHP_VERSION_ID < 80100) $property->setAccessible(true); $property->setValue(null, false);
-$_GET['elementor-preview'] = '1'; ob_start(); LV_News_Counters::output(); $preview = ob_get_clean();
-check_counter($preview === '', 'Elementor preview excluded');
+$out = counter_render('/?post_type=lv_news&p='.$news);
+check_counter(strpos($out, $script) !== false, 'single news context renders counters');
+reset_counter_rendered();
+$_GET['elementor-preview'] = '1';
+check_counter(LV_News_Counters::render() === '', 'Elementor preview excluded');
 wp_set_current_user(1);
 $home = wp_insert_post(['post_type'=>'page','post_status'=>'publish','post_title'=>'Home','post_content'=>'[lv_home_news]']);
 update_option('show_on_front','page'); update_option('page_on_front',$home);
-check_counter(counter_output('/?page_id='.$home) === '', 'static homepage excluded');
+check_counter(counter_render('/?page_id='.$home) === '', 'static homepage excluded');
 $other = wp_insert_post(['post_type'=>'page','post_status'=>'publish','post_title'=>'Other','post_content'=>'[lv_home_news]']);
-check_counter(counter_output('/?page_id='.$other) === '', 'home snippet on unrelated page excluded');
-check_counter(counter_output('/?post_type=lv_news&feed=rss2') === '', 'news feed excluded');
-check_counter(counter_output('/?post_type=lv_news&p='.$news.'&preview=true') === '', 'preview excluded');
-check_counter(counter_output('/?post_type=lv_news&p=99999999') === '', '404 excluded');
+check_counter(counter_render('/?page_id='.$other) === '', 'home snippet on unrelated page excluded');
+check_counter(counter_render('/?post_type=lv_news&feed=rss2') === '', 'news feed excluded');
+check_counter(counter_render('/?post_type=lv_news&p='.$news.'&preview=true') === '', 'preview excluded');
+check_counter(counter_render('/?post_type=lv_news&p=99999999') === '', '404 excluded');
 update_option(LV_News_Counters::OPTION, []);
-check_counter(counter_output('/?page_id='.$archive) === '', 'empty settings produce no markup');
+check_counter(counter_render('/?page_id='.$archive) === '', 'empty settings produce no markup');
 $_POST = []; $_REQUEST['_wpnonce'] = wp_create_nonce('lv_news_save_counters');
 try { LV_News_Counters::save(); } catch (RuntimeException $e) {}
 check_counter(LV_News_Counters::items() === [], 'all counters can be removed');
