@@ -1,0 +1,31 @@
+name: Release 1.5.2
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/release-1.5.2.yml]
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate PHP and release version
+        run: |
+          find includes -name '*.php' -print0 | xargs -0 -n1 php -l
+          php -l lv-news-suite.php
+          php -l tests/counters.php
+          grep -F 'Version: 1.5.2' lv-news-suite.php
+          grep -F "define('LV_NEWS_SUITE_VERSION', '1.5.2');" lv-news-suite.php
+          grep -F 'Stable tag: 1.5.2' readme.txt
+          ! grep -F "add_action('wp_footer', [__CLASS__, 'output']" includes/class-lv-news-counters.php
+          grep -F 'LV_News_Counters::render()' includes/class-lv-news-public.php
+      - name: Build installable plugin
+        run: python3 tools/build-release.py
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create v1.5.2 dist/lv-news-suite-1.5.2.zip dist/lv-news-suite-1.5.2.sha256 \
+            --target "$GITHUB_SHA" --title 'LV News Suite 1.5.2' \
+            --notes-file docs/RELEASE-NOTES-1.5.2.md
