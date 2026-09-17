@@ -97,7 +97,10 @@ final class LV_News_Public
         $featured_id = (int) $pagination['featured_id'];
 
         if ((int) $pagination['total'] < 1) {
-            return '<div id="lvNewsArchive"><div class="na-main"><div class="na-empty"><h2 class="na-empty__title">Новостей пока нет</h2><p class="na-empty__text">Скоро здесь появятся новости фонда и истории наших подопечных.</p></div></div></div>';
+            $html = '<div id="lvNewsArchive"><div class="na-main"><div class="na-empty"><h2 class="na-empty__title">Новостей пока нет</h2><p class="na-empty__text">Скоро здесь появятся новости фонда и истории наших подопечных.</p></div>';
+            $html .= LV_News_Counters::render();
+            $html .= '</div></div>';
+            return self::compact_shortcode_html($html);
         }
 
         $normal_query = self::archive_query($page, $featured_id);
@@ -124,6 +127,7 @@ final class LV_News_Public
                 <?php endif; ?>
 
                 <?php echo self::render_pagination($page, (int) $pagination['total_pages']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                <?php echo LV_News_Counters::render(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted admin-managed snippets. ?>
             </div>
         </div>
         <?php
@@ -405,6 +409,7 @@ final class LV_News_Public
                         <a class="sn-side__all" href="<?php echo esc_url(LV_News_Suite::archive_url()); ?>">Все новости →</a>
                     </aside>
                 </div>
+                <?php echo LV_News_Counters::render(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted admin-managed snippets. ?>
             </div>
         </div>
         <?php
