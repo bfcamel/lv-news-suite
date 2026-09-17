@@ -13,7 +13,8 @@ final class LV_News_Counters
     {
         add_action('admin_menu', [__CLASS__, 'menu'], 31);
         add_action('admin_post_lv_news_save_counters', [__CLASS__, 'save']);
-        add_action('wp_footer', [__CLASS__, 'output'], 5);
+        // Run late in wp_footer so service snippets stay close to the closing body tag.
+        add_action('wp_footer', [__CLASS__, 'output'], 100);
     }
 
     public static function can_manage()
@@ -100,6 +101,7 @@ final class LV_News_Counters
         ?>
         <p>Счётчики выводятся внизу страниц архива и отдельных новостей. На главной странице и в блоке «Последние новости» их нет.</p>
         <p>Вставляйте полный код каждого сервиса в отдельное поле. Используйте только доверенный код: скрипты выполняются у посетителей сайта. Названия видны только здесь.</p>
+        <p>Плагин выводит код без дополнительных контейнеров и стилей, поэтому невидимые счётчики не создают пустой отступ перед подвалом.</p>
         <?php if (isset($_GET['saved']) && $_GET['saved'] === '1') : ?>
             <div class="notice notice-success is-dismissible"><p>Счётчики сохранены. Если на сайте включён кеш, очистите его.</p></div>
         <?php endif; ?>
@@ -160,11 +162,9 @@ final class LV_News_Counters
             return;
         }
         self::$rendered = true;
-        // Footer output avoids Elementor/wpautop altering scripts or running them in snippets.
-        echo '<div class="lv-news-counters" style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px;padding:16px">';
+        // Keep third-party snippets byte-for-byte intact and do not introduce visible layout.
         foreach ($code as $snippet) {
-            echo '<div class="lv-news-counter">' . $snippet . "\n</div>"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Saved only by users with unfiltered_html AND manage_options.
+            echo $snippet . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Saved only by users with unfiltered_html AND manage_options.
         }
-        echo '</div>';
     }
 }
