@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Люди и Верблюды — Новости
  * Description: Новости фонда: WYSIWYG-редактор, архив /news/, главная новость, SEO, предпросмотр и редакционный workflow.
- * Version: 1.4.2
+ * Version: 1.5.0
  * Requires at least: 7.1
  * Requires PHP: 7.4
  * Author: БФ «Люди и Верблюды»
@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('LV_NEWS_SUITE_VERSION', '1.4.2');
+define('LV_NEWS_SUITE_VERSION', '1.5.0');
 define('LV_NEWS_SUITE_DB_VERSION', 6);
 define('LV_NEWS_SUITE_ROUTES_VERSION', 1);
 define('LV_NEWS_SUITE_FILE', __FILE__);
@@ -28,6 +28,7 @@ require_once LV_NEWS_SUITE_DIR . 'includes/class-lv-news-editor.php';
 require_once LV_NEWS_SUITE_DIR . 'includes/class-lv-news-public.php';
 require_once LV_NEWS_SUITE_DIR . 'includes/class-lv-news-seo.php';
 require_once LV_NEWS_SUITE_DIR . 'includes/class-lv-news-admin.php';
+require_once LV_NEWS_SUITE_DIR . 'includes/class-lv-news-counters.php';
 
 register_activation_hook(__FILE__, ['LV_News_Suite', 'activate']);
 register_deactivation_hook(__FILE__, ['LV_News_Suite', 'deactivate']);
