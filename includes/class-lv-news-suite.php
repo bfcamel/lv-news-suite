@@ -56,6 +56,7 @@ final class LV_News_Suite
         LV_News_Public::boot();
         LV_News_SEO::boot();
         LV_News_Admin::boot();
+        LV_News_Counters::boot();
     }
 
     public static function activate()
