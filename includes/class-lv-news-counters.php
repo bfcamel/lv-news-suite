@@ -13,8 +13,6 @@ final class LV_News_Counters
     {
         add_action('admin_menu', [__CLASS__, 'menu'], 31);
         add_action('admin_post_lv_news_save_counters', [__CLASS__, 'save']);
-        // Run late in wp_footer so service snippets stay close to the closing body tag.
-        add_action('wp_footer', [__CLASS__, 'output'], 100);
     }
 
     public static function can_manage()
@@ -99,9 +97,9 @@ final class LV_News_Counters
             $items = [['name' => '', 'code' => '', 'enabled' => true]];
         }
         ?>
-        <p>Счётчики выводятся внизу страниц архива и отдельных новостей. На главной странице и в блоке «Последние новости» их нет.</p>
+        <p>Счётчики выводятся непосредственно после блока новостей в архиве и после содержимого отдельной новости, то есть перед подвалом сайта.</p>
         <p>Вставляйте полный код каждого сервиса в отдельное поле. Используйте только доверенный код: скрипты выполняются у посетителей сайта. Названия видны только здесь.</p>
-        <p>Плагин выводит код без дополнительных контейнеров и стилей, поэтому невидимые счётчики не создают пустой отступ перед подвалом.</p>
+        <p>Если код сервиса содержит видимый информер (например, картинку LiveInternet), он будет показан по центру под новостями.</p>
         <?php if (isset($_GET['saved']) && $_GET['saved'] === '1') : ?>
             <div class="notice notice-success is-dismissible"><p>Счётчики сохранены. Если на сайте включён кеш, очистите его.</p></div>
         <?php endif; ?>
@@ -139,19 +137,25 @@ final class LV_News_Counters
         <?php
     }
 
-    public static function output()
+    /**
+     * Return counters exactly where the news renderer asks for them.
+     * This intentionally does not use wp_footer: a visible informer belongs to
+     * the news content area, above the site footer.
+     */
+    public static function render()
     {
         if (self::$rendered || is_admin() || wp_doing_ajax() || (defined('REST_REQUEST') && REST_REQUEST)
             || is_feed() || is_embed() || is_preview() || is_404() || is_front_page() || is_home()
             || isset($_GET['elementor-preview']) || is_customize_preview()) {
-            return;
+            return '';
         }
         if (!is_singular(LV_News_Suite::POST_TYPE) && !LV_News_Suite::is_archive_context()) {
-            return;
+            return '';
         }
         if (is_singular() && post_password_required()) {
-            return;
+            return '';
         }
+
         $code = [];
         foreach (self::items() as $item) {
             if (is_array($item) && !empty($item['enabled']) && isset($item['code']) && is_string($item['code']) && trim($item['code']) !== '') {
@@ -159,12 +163,15 @@ final class LV_News_Counters
             }
         }
         if (!$code) {
-            return;
+            return '';
         }
+
         self::$rendered = true;
-        // Keep third-party snippets byte-for-byte intact and do not introduce visible layout.
+        $html = '<div class="lv-news-counters" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px;width:100%;margin:32px auto 0;text-align:center;line-height:1">';
         foreach ($code as $snippet) {
-            echo $snippet . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Saved only by users with unfiltered_html AND manage_options.
+            $html .= $snippet . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Saved only by users with unfiltered_html AND manage_options.
         }
+        $html .= '</div>';
+        return $html;
     }
 }
